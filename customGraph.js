@@ -44,45 +44,83 @@ class Graph{
     }
     delete this.adjecency[vertex];
     }
+    bfs(){
+        let visited = new Set();
+        let result = [];
+        for(let vertex in this.adjecency){
+            if(!visited.has(vertex)){
+                this.bfsHelper(vertex , visited , result);
+            }
+        }
+        console.log(result);
+        
+    }
+    bfsHelper(start , visited , result){
+        let queue = [start];
+        visited.add(start);
+        while(queue.length >0){
+            let vertex = queue.shift();
+            result.push(vertex);
+            for(let adjecentVertex of this.adjecency[vertex]){
+                if(!visited.has(adjecentVertex)){
+                    visited.add(adjecentVertex);
+                    queue.push(adjecentVertex);
+                }
+            }
+        }
+    }
 }
 
 const graph = new Graph();
 
-// Adding vertices
-graph.addVertex('A');
-graph.addVertex('B');
-graph.addVertex('C');
-graph.addVertex('D');
+// // Adding vertices
+// graph.addVertex('A');
+// graph.addVertex('B');
+// graph.addVertex('C');
+// graph.addVertex('D');
 
-// Adding unidirectional edges
-graph.addEdge('A', 'B'); // A -> B
-graph.addEdge('B', 'C'); // B -> C
+// // Adding unidirectional edges
+// graph.addEdge('A', 'B'); // A -> B
+// graph.addEdge('B', 'C'); // B -> C
 
-// Adding bidirectional edges
-graph.addEdge('C', 'D', true); // C <-> D
-graph.addEdge('A', 'D', true); // A <-> D
+// // Adding bidirectional edges
+// graph.addEdge('C', 'D', true); // C <-> D
+// graph.addEdge('A', 'D', true); // A <-> D
 
-// Display the graph
-console.log("Graph:");
+// // Display the graph
+// console.log("Graph:");
+// graph.display();
+
+// // Check for edges
+// console.log("Has Edge A -> B:", graph.hasEdge('A', 'B')); // true
+// console.log("Has Edge B -> A:", graph.hasEdge('B', 'A')); // false (unidirectional)
+// console.log("Has Edge C -> D:", graph.hasEdge('C', 'D')); // true
+// console.log("Has Edge D -> C:", graph.hasEdge('D', 'C')); // true (bidirectional)
+
+// // Remove a unidirectional edge
+// graph.removeEdge('A', 'B');
+// console.log("\nAfter removing edge A -> B:");
+// graph.display();
+
+// // Remove a bidirectional edge
+// graph.removeEdge('C', 'D', true);
+// console.log("\nAfter removing bidirectional edge C <-> D:");
+// graph.display();
+
+// // Remove a vertex
+// graph.removeVertex('A');
+// console.log("\nAfter removing vertex A:");
+// graph.display();
+
+
+graph.addVertex("A");
+graph.addVertex("B");
+graph.addVertex("C");
+graph.addVertex("D");
+graph.addVertex("E");
+
+graph.addEdge("A", "E", true);
+graph.addEdge("A", "D", true);
 graph.display();
-
-// Check for edges
-console.log("Has Edge A -> B:", graph.hasEdge('A', 'B')); // true
-console.log("Has Edge B -> A:", graph.hasEdge('B', 'A')); // false (unidirectional)
-console.log("Has Edge C -> D:", graph.hasEdge('C', 'D')); // true
-console.log("Has Edge D -> C:", graph.hasEdge('D', 'C')); // true (bidirectional)
-
-// Remove a unidirectional edge
-graph.removeEdge('A', 'B');
-console.log("\nAfter removing edge A -> B:");
-graph.display();
-
-// Remove a bidirectional edge
-graph.removeEdge('C', 'D', true);
-console.log("\nAfter removing bidirectional edge C <-> D:");
-graph.display();
-
-// Remove a vertex
-graph.removeVertex('A');
-console.log("\nAfter removing vertex A:");
-graph.display();
+console.log("BFS with Disconnected Vertices:");
+graph.bfs();
