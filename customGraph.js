@@ -69,6 +69,29 @@ class Graph{
             }
         }
     }
+    dfs(){
+        let visited = new Set();
+        let result = [];
+        for(let vertex in this.adjecency){
+            if(!visited.has(vertex)){
+                this.dfsHelper(vertex, visited, result);
+            }
+        }
+        console.log(result);
+        
+    }
+    dfsHelper(start,visited , result){
+        visited.add(start);
+        result.push(start);
+
+        for(let adjecentVertex of this.adjecency[start]){
+            if(!visited.has(adjecentVertex)){
+                this.dfsHelper(adjecentVertex , visited, result);
+            }
+            
+        }
+
+    }
 }
 
 const graph = new Graph();
@@ -121,6 +144,10 @@ graph.addVertex("E");
 
 graph.addEdge("A", "E", true);
 graph.addEdge("A", "D", true);
+graph.addEdge("E", "C", true);
+graph.addEdge("C", "D", true);
 graph.display();
 console.log("BFS with Disconnected Vertices:");
 graph.bfs();
+console.log("DFS with Disconnected Vertices:");
+graph.dfs();
