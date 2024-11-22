@@ -89,3 +89,4 @@ heap.insert(40);
 console.log("Max:", heap.peek()); // Output: 40
 console.log("Extracted Max:", heap.extractMax()); // Output: 40
 console.log("Heap after extraction:", heap.heap);
+
